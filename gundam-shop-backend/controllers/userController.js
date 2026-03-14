@@ -61,7 +61,6 @@ const loginOrRegister = async (req, res) => {
                 firebaseId,
                 email,
                 name,
-                password: '', 
                 role: 'user'
             };
             user = await userService.createUser(userData);
