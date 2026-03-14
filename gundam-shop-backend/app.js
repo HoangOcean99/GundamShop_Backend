@@ -6,6 +6,13 @@ var logger = require('morgan');
 const mongoose = require("mongoose");
 require("dotenv").config();
 var categoryRoute = require('./routes/categoryRoute');
+var productRoute = require('./routes/productRoute');
+var userRoute = require('./routes/userRoute');
+var cartRoute = require('./routes/cartRoute');
+var orderRoute = require('./routes/orderRoute');
+var reviewRoute = require('./routes/reviewRoute');
+
+var { verifyFirebaseToken } = require('./middlewares/authMiddleware');
 
 var app = express();
 
@@ -18,11 +25,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(verifyFirebaseToken);
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(e => console.error("MongoDB error:", e));
 
-app.use('/categories', categoryRoute)
+app.use('/categories', categoryRoute);
+app.use('/products', productRoute);
+app.use('/users', userRoute);
+app.use('/carts', cartRoute);
+app.use('/orders', orderRoute);
+app.use('/reviews', reviewRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
