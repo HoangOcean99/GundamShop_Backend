@@ -12,6 +12,9 @@ router.get('/', orderController.getAllOrders);
 /* GET order by ID */
 router.get('/:id', orderController.getOrderById);
 
+/* GET orders by current user */
+router.get('/user/orders', orderController.getOrdersByUser);
+
 /* POST create order */
 router.post('/', orderController.createOrder);
 

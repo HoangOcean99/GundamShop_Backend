@@ -21,4 +21,8 @@ const deleteOrder = async (id) => {
     return await Order.findByIdAndDelete(id);
 }
 
-module.exports = { getOrders, getOrderById, createOrder, updateOrder, deleteOrder };
+const getOrdersByUserId = async (userId) => {
+    return await Order.find({ user: userId }).populate('user').populate('items.product');
+}
+
+module.exports = { getOrders, getOrderById, getOrdersByUserId, createOrder, updateOrder, deleteOrder };

@@ -2,7 +2,13 @@ const productService = require('../services/productService')
 
 const getAllProducts = async (req, res) => {
     try {
-        const products = await productService.getProducts();
+        const { mainCategory, subCategory, scale } = req.query;
+        const filter = {};
+        if (mainCategory) filter.mainCategory = mainCategory;
+        if (subCategory) filter.subCategory = subCategory;
+        if (scale) filter.scale = scale;
+
+        const products = await productService.getProducts(filter);
         res.json(products);
     } catch (err) {
         res.status(500).json({ message: err.message });
