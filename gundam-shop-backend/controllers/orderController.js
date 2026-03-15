@@ -33,19 +33,6 @@ const getOrderById = async (req, res) => {
   }
 };
 
-const getOrdersByUser = async (req, res) => {
-  try {
-    const userService = require("../services/userService");
-    const user = await userService.getUserByFirebaseId(req.user.uid);
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    const orders = await orderService.getOrdersByUserId(user._id);
-    res.json(orders);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
 const createOrder = async (req, res) => {
   try {
     const order = await orderService.createOrder(req.body);
