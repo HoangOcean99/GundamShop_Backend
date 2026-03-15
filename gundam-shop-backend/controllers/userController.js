@@ -19,6 +19,16 @@ const getUserById = async (req, res) => {
     }
 }
 
+const getUserByFirebaseId = async (req, res) => {
+    try {
+        const user = await userService.getUserByFirebaseId(req.params.firebaseId);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 const createUser = async (req, res) => {
     try {
         const userData = { ...req.body, firebaseId: req.user.uid };
@@ -71,4 +81,4 @@ const loginOrRegister = async (req, res) => {
     }
 }
 
-module.exports = { getAllUsers, getUserById, createUser, updateUser, deleteUser, loginOrRegister };
+module.exports = { getAllUsers, getUserById, getUserByFirebaseId, createUser, updateUser, deleteUser, loginOrRegister };

@@ -12,6 +12,9 @@ router.get('/', userController.getAllUsers);
 /* GET user by ID */
 router.get('/:id', userController.getUserById);
 
+/* GET user by Firebase ID */
+router.get('/firebase/:firebaseId', userController.getUserByFirebaseId);
+
 /* POST create user */
 router.post('/', userController.createUser);
 
