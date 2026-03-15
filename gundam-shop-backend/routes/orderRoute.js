@@ -9,6 +9,9 @@ router.use(verifyFirebaseToken);
 /* GET all orders */
 router.get('/', orderController.getAllOrders);
 
+/* GET orders by user */
+router.get('/user/orders', orderController.getOrdersByUser);
+
 /* GET order by ID */
 router.get('/:id', orderController.getOrderById);
 
